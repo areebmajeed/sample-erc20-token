@@ -33,7 +33,7 @@ contract Owned {
     bool public transferStatus = true;
     event ownershipChanged(address indexed _invoker, address indexed _newOwner);        
     event transferStatusChanged(bool _newStatus);
-    uint256 public _totalSupply = 85000000000000000000000000;
+    uint256 public _totalSupply = 1000000000000000000000000;
     mapping(address => uint256) userBalances;
     
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
@@ -95,18 +95,6 @@ contract Owned {
         userBalances[msg.sender] = SafeMath.safeSub(userBalances[msg.sender], _amount);
 	
 	    emit Transfer(msg.sender, address(0), _amount);
-
-        return true;
-
-    }
-
-    function burnFromAddress(address _address, uint256 _amount) public _onlyOwner returns (bool _success) {
-
-        require(SafeMath.safeSub(userBalances[_address], _amount) >= 0);
-        _totalSupply = SafeMath.safeSub(_totalSupply, _amount);
-        userBalances[_address] = SafeMath.safeSub(userBalances[_address], _amount);
-	
-	    emit Transfer(_address, address(0), _amount);
 
         return true;
 
